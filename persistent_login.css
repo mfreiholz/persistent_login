@@ -1,0 +1,23 @@
+#ifplcontainer {
+	border: 0px solid #999;
+	text-align:center;
+}
+
+#ifplcontainer div {
+	margin: 3px 0 0 0;
+	padding: 0;
+	line-height: 1.0em;
+}
+
+#ifplcontainer label {
+}
+
+#ifplcontainer p {
+	display:none;
+	margin: 5px 0 0 0;
+	font-size:0.9em;
+}
+
+#ifplcontainer p {
+	color: #990000;
+}
