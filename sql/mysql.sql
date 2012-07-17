@@ -10,3 +10,9 @@ CREATE TABLE `auth_tokens` (
 ALTER TABLE `auth_tokens`
 	ADD CONSTRAINT `auth_tokens_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 
+--
+-- Update Version 2.0
+--
+
+ALTER TABLE `auth_tokens`
+	ADD `host` varchar(255) NOT NULL;
