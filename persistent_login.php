@@ -81,7 +81,9 @@ class persistent_login extends rcube_plugin
 		if ($this->use_auth_tokens) {
 		
 			// remove all expired tokens from database.
-			$rcmail->get_dbh()->query("DELETE FROM " . get_table_name($this->db_table_auth_tokens) . " WHERE `expires` < NOW()");
+			$rcmail->get_dbh()->query(
+				"DELETE FROM " . get_table_name($this->db_table_auth_tokens) 
+				." WHERE expires < ".$rcmail->db->now());
 		
 			// 0 - user-id
 			// 1 - auth-token
@@ -96,8 +98,12 @@ class persistent_login extends rcube_plugin
 			}
 			
 			// get auth_token data from db.
-			$sql = "SELECT * FROM " . get_table_name($this->db_table_auth_tokens) . " WHERE `token`=? AND `user_id`=?";
-			$res = $rcmail->get_dbh()->query($sql, $token_parts[1], $token_parts[0]);
+			$res = $rcmail->get_dbh()->query(
+				"SELECT * FROM " . get_table_name($this->db_table_auth_tokens) 
+				." WHERE token = ?"
+					." AND user_id = ?",
+				$token_parts[1],
+				$token_parts[0]);
 			
 			if (($data = $rcmail->get_dbh()->fetch_assoc($res))) {
 				// has the token been expired?
@@ -117,14 +123,23 @@ class persistent_login extends rcube_plugin
 				$this->authenticate_args = $args;
 				
 				// remove token from db.
-				$rcmail->get_dbh()->query("DELETE FROM " . get_table_name($this->db_table_auth_tokens) . " WHERE `token`=? AND `user_id`=?", $token_parts[1], $token_parts[0]);
+				$rcmail->get_dbh()->query(
+					"DELETE FROM " . get_table_name($this->db_table_auth_tokens) 
+					." WHERE token = ? "
+						." AND user_id = ?",
+					$token_parts[1],
+					$token_parts[0]);
 			}
 			else {
 				// seems like the token is invalid.
 				// this case can only happen if the token is used a 2nd time -> got hacked?!
-				// for security reason we invalidate all persistent-auth cookies of the user and log the wrong users IP!
+				// for security reason we invalidate all persistent-auth cookies of the user 
+				// and log the wrong users IP!
 				self::unset_persistent_cookie();
-				$rcmail->get_dbh()->query("DELETE FROM " . get_table_name($this->db_table_auth_tokens) . " WHERE `user_id`=?", $token_parts[0]);
+				$rcmail->get_dbh()->query(
+					"DELETE FROM " . get_table_name($this->db_table_auth_tokens) 
+					. " WHERE user_id = ?",
+					$token_parts[0]);
 				//error_log('seems like a persistent login cookie has been stolen. invalidated all auth-tokens of user ' . $token_parts[0]);
 			}
 			
@@ -194,7 +209,11 @@ class persistent_login extends rcube_plugin
 				&& count($token_parts) == 2
 			) {
 				// remove token from db.
-				rcmail::get_instance()->get_dbh()->query("DELETE FROM " . get_table_name($this->db_table_auth_tokens) . " WHERE `token`=? AND `user_id`=?", $token_parts[1], $token_parts[0]);
+				rcmail::get_instance()->get_dbh()->query(
+					"DELETE FROM " . get_table_name($this->db_table_auth_tokens) 
+					. " WHERE token = ? AND user_id = ?",
+					$token_parts[1],
+					$token_parts[0]);
 			}
 		}
 		
@@ -258,8 +277,8 @@ class persistent_login extends rcube_plugin
 		}
 		else {
 			// fallback (should never happen!)
-			// note: can not use this way, if the main.inc.php config defines the host without port, but the cookie holds
-			// the url with port, the cookie authentication won't work!
+			// note: can not use this way, if the main.inc.php config defines the host without port,
+			// but the cookie holds the url with port, the cookie authentication won't work!
 			error_log('using fallback mechanism for "host" connect url.');
 			
 			if (isset($_SESSION['storage_ssl']) && !empty($_SESSION['storage_ssl'])) {
@@ -292,8 +311,11 @@ class persistent_login extends rcube_plugin
 			$sql_expires = date("Y-m-d H:i:s", $ts_expires);
 			
 			// insert token to database.
-			$sql = 'INSERT INTO '.get_table_name($this->db_table_auth_tokens).' (`token`, `expires`, `user_id`, `user_name`, `user_pass`, `host`) VALUES (?, ?, ?, ?, ?, ?)';
-			$rcmail->get_dbh()->query($sql, $auth_token, $sql_expires, $user_id, $user_name, $user_password, $host);
+			$rcmail->get_dbh()->query(
+				"INSERT INTO ".get_table_name($this->db_table_auth_tokens)
+				." (token, expires, user_id, user_name, user_pass, host)"
+				." VALUES (?, ?, ?, ?, ?, ?)",
+				$auth_token, $sql_expires, $user_id, $user_name, $user_password, $host);
 
 			// set token as cookie.
 			if (!self::set_cookie($this->cookie_name, $crypt_token, time() + $this->cookie_expire_time)) {
