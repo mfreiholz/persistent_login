@@ -32,10 +32,12 @@
 			<file name="persistent_login.js" role="data">
 				<tasks:replace from="@package_version@" to="version" type="package-info"/>
 			</file>
-			<file name="persistent_login.css" role="data">
-			<file name="persistent_login_larry.css" role="data">
+			<file name="persistent_login.css" role="data"/>
+			<file name="persistent_login_larry.css" role="data"/>
+			<file name="config.inc.php.dist" role="data"/>
 			<file name="README" role="data"/>
 			<file name="sql/mysql.sql" role="data"/>
+			<file name="sql/postgres.sql" role="data"/>
 			<file name="localization/cs_CZ.inc" role="data"/>
 			<file name="localization/da_DK.inc" role="data"/>
 			<file name="localization/de_CH.inc" role="data"/>
