@@ -2,6 +2,7 @@
  * Plugin which provides a persistent login functionality.
  * Also known as "remembery me" or "stay logged in" function.
  *
+ * @version @package_version@
  * @author insaneFactory, Manuel Freiholz
  * @website http://manuel.insanefactory.com/
  */
