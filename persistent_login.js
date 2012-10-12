@@ -21,7 +21,7 @@ $(document).ready(function() {
 				text+= '</div>';
 			
 			var element = $('div.boxcontent > form');
-			if (element && element.length != 0) {
+			if (element && element.length !== 0) {
 				element.append(text);
 			}
 			else {
