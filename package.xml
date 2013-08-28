@@ -12,11 +12,11 @@
 		<user>mfreiholz</user>
 		<active>yes</active>
 	</lead>
-	<date>2012-09-23</date>
-	<time>16:51:21</time>
+	<date>2013-08-28</date>
+	<time>18:58:00</time>
 	<version>
-		<release>2.0</release>
-		<api>2.0</api>
+		<release>3.1</release>
+		<api>3.1</api>
 	</version>
 	<stability>
 		<release>stable</release>

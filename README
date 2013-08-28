@@ -1,19 +1,9 @@
-
- Author
--------------------------------
-
-	Manuel Freiholz
-	insaneFactory.com
-
-
- Installation
--------------------------------
-
-	See the official website
-	http://www.insanefactory.com/roundcube-persistent-login-plugin/
+Installation
+============
+See the official website
+http://www.insanefactory.com/roundcube-persistent-login-plugin/
 	
 
- Misc
--------------------------------
-
-	This plugin replaces the old "remember_me" plugin of the "myroundcube"-bundle.
+Misc
+====
+This plugin replaces the old "remember_me" plugin of the "myroundcube"-bundle.
