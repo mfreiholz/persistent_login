@@ -394,10 +394,12 @@ class persistent_login extends rcube_plugin
 	 */
 	function set_cookie($name, $value, $exp = 0)
 	{
-		if (headers_sent()) {
+		if (headers_sent($filename, $linenum)) {
+			error_log('Error setting cookie, headers have been sent in '.$filename.' line '.$linenum);
 			return false;
 		}
-		return rcmail::get_instance()->setcookie($name, $value, $exp);
+		rcmail::setcookie($name, $value, $exp);
+		return true;
 	}
 	
 	/**
@@ -411,6 +413,7 @@ class persistent_login extends rcube_plugin
 		if (headers_sent()) {
 			return false;
 		}
-		return setcookie($name, "", time() - 60);
+		rcmail::setcookie($name, "", time() - 60);
+		return true;
 	}
 }
