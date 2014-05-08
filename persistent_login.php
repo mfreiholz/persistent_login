@@ -121,8 +121,9 @@ class persistent_login extends rcube_plugin
 				$args['host'] = $data['host'];
 				$args['cookiecheck'] = false;
 				$args['valid'] = true;
+				$args['abort'] = false;
 				$this->authenticate_args = $args;
-				
+
 				// remove token from db.
 				$rcmail->get_dbh()->query(
 					"DELETE FROM " . get_table_name($this->db_table_auth_tokens) 
@@ -173,6 +174,7 @@ class persistent_login extends rcube_plugin
 					$args['host'] = $token_parts[3];
 					$args['cookiecheck'] = false;
 					$args['valid'] = true;
+					$args['abort'] = false;					
 					$this->authenticate_args = $args;
 				}
 			}
@@ -394,10 +396,8 @@ class persistent_login extends rcube_plugin
 	 */
 	function set_cookie($name, $value, $exp = 0)
 	{
-		if (headers_sent()) {
-			return false;
-		}
-		return rcmail::get_instance()->setcookie($name, $value, $exp);
+		rcmail::get_instance()->setcookie($name, $value, $exp);
+		return isset($_COOKIE[$name]);
 	}
 	
 	/**
