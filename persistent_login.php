@@ -411,6 +411,6 @@ class persistent_login extends rcube_plugin
 		if (headers_sent()) {
 			return false;
 		}
-		return setcookie($name, "", time() - 60);
+		return rcmail::get_instance()->setcookie($name, "", time() - 60);
 	}
 }
