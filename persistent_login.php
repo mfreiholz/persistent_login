@@ -321,7 +321,7 @@ class persistent_login extends rcube_plugin
 				$auth_token, $sql_expires, $user_id, $user_name, $user_password, $host);
 
 			// set token as cookie.
-			if (!self::set_cookie($this->cookie_name, $crypt_token, time() + $this->cookie_expire_time)) {
+			if (!self::set_cookie($this->cookie_name, $crypt_token, $ts_expires)) {
 				error_log('unable to set persistent login cookie for user "'.$rcmail->user->data['username'].'"');
 			}
 		}
@@ -387,7 +387,6 @@ class persistent_login extends rcube_plugin
 	
 	/**
 	 * sets a cookie.
-	 * @todo for some reason using rcmail::setcookie() doesn't work.
 	 *
 	 * @param $name
 	 * @param $value
@@ -396,8 +395,8 @@ class persistent_login extends rcube_plugin
 	 */
 	function set_cookie($name, $value, $exp = 0)
 	{
-		rcmail::get_instance()->setcookie($name, $value, $exp);
-		return isset($_COOKIE[$name]);
+		rcube_utils::setcookie($name, $value, $exp);
+		return true;
 	}
 	
 	/**
@@ -411,6 +410,7 @@ class persistent_login extends rcube_plugin
 		if (headers_sent()) {
 			return false;
 		}
-		return rcmail::get_instance()->setcookie($name, "", time() - 60);
+		rcube_utils::setcookie($name, "", time() - 60);
+		return true;
 	}
 }

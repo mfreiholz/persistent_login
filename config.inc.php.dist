@@ -3,7 +3,7 @@
 // PERSISTENT LOGIN / REMEMBER ME
 // ----------------------------------
 
-// Time until the peristent login cookie invalidates (in milliseconds; 60*60*24*3 = 3 days)
+// Time until the peristent login cookie invalidates (in seconds; 60*60*24*3 = 3 days)
 $rcmail_config['ifpl_login_expire'] = 60*60*24*3;
 
 // The name of the persistent login cookie.
