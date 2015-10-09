@@ -1,8 +1,8 @@
 #ifplcontainer {
 	border: 0 solid #999;
-	color: #cecece;
+	/* color: #cecece; */
 	text-align: center;
-	text-shadow: 0 1px 1px black;
+	/* text-shadow: 0 1px 1px black; */
 }
 
 #ifplcontainer div {
@@ -26,4 +26,8 @@
 	color: #990000;
 	padding: 5px;
 	text-shadow: none;
+}
+
+#ifplcontainer input, #ifplcontainer label {
+	vertical-align: middle;
 }
