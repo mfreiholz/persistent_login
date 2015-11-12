@@ -28,6 +28,10 @@ class persistent_login extends rcube_plugin
 	// to use it in a later called method (login_after())
 	private $authenticate_args = array();
 	
+	// temporary variable to hold the original _action parameter when trying to log in
+	// using data from persisten cookie
+	private $original_action;
+	
 	function init()
 	{
 		$rcmail = rcmail::get_instance();
@@ -60,6 +64,11 @@ class persistent_login extends rcube_plugin
 	{
 		// if the persistent token is available, we have to redirect to login-authentication.
 		if (self::is_persistent_cookie_available()) {
+			// store the original _action parameter, so we can redirect to where the user
+			// wanted after successful login
+			if (isset($args['action'])) {
+				$this->original_action = $args['action'];
+			}
 			$args['action'] = 'login';
 		}
 		return $args;
@@ -197,6 +206,10 @@ class persistent_login extends rcube_plugin
 		// user just logged in by form and wants a cookie now.
 		else if (get_input_value('_ifpl', RCUBE_INPUT_POST)) {
 			self::set_persistent_cookie();
+		}
+		// restore the user requested action
+		if (isset($this->original_action)) {
+			$args['action'] = $this->original_action;
 		}
 		return $args;
 	}
