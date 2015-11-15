@@ -408,7 +408,11 @@ class persistent_login extends rcube_plugin
 	 */
 	function set_cookie($name, $value, $exp = 0)
 	{
-		rcube_utils::setcookie($name, $value, $exp);
+		if (class_exists('rcube_utils')) {
+			rcube_utils::setcookie($name, $value, $exp);
+		} else {
+			rcmail::get_instance()->setcookie($name, $value, $exp);
+		}
 		return true;
 	}
 	
@@ -423,7 +427,11 @@ class persistent_login extends rcube_plugin
 		if (headers_sent()) {
 			return false;
 		}
-		rcube_utils::setcookie($name, "", time() - 60);
+		if (class_exists('rcube_utils')) {
+			rcube_utils::setcookie($name, "", time() - 60);
+		} else {
+			rcmail::get_instance()->setcookie($name, "", time() - 60);
+		}
 		return true;
 	}
 }
