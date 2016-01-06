@@ -254,6 +254,8 @@ class persistent_login extends rcube_plugin
 		// add additional stylesheet for larry theme.
 		if (rcmail::get_instance()->config->get('skin', 'default') == 'larry') {
 			$this->include_stylesheet('persistent_login_larry.css');
+		} elseif (rcmail::get_instance()->config->get('skin', 'default') == 'googie_larry') {
+			$this->include_stylesheet('persistent_login_googie_larry.css');
 		}
 		
 		// import javascript client code.
