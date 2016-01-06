@@ -1,0 +1,10 @@
+#ifplcontainer {
+  text-shadow: none
+}
+#ifplcontainer label {
+  color: #000000;
+}
+
+#ifplcontainer p {
+  color: #FF0000;
+}
