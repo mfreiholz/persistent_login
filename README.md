@@ -1,8 +1,5 @@
 # Persistent Login (Roundcube)
-This server-side plugin is useful for all Roundcube users who don’t
-like to log into their mail account each time they open their browser.
-The plugin stores a persistent login cookie which automatically logs
-the user in the next time he or she visits the [Roundcube][roundcube] web mailer.
+Provides a "Keep me logged in" aka "Remember Me" functionality for [Roundcube][roundcube].
 
 ![Login with Larry Skin](docs/login_larry.png)
 
@@ -17,7 +14,6 @@ You can download the plugin from the latest [release tags][github-release] on Gi
   and add the plugin’s name to the active plugins array, e.g.:
 
 ```php
-// List of active plugins (in plugins/ directory)
 $config['plugins'] = array('persistent_login');
 ```
 
@@ -37,9 +33,8 @@ Execute ALL statements from the SQL file.
 
 Enable it in config: `persistent_login/config.inc.php`
 ```php
-// Turn on feature  to use tokens.
 $rcmail_config['ifpl_use_auth_tokens'] = true;
 ```
 
 [roundcube]: http://roundcube.net/
-[github-release]: https://github.com/mfreiholz/Roundcube-Persistent-Login-Plugin/releases
+[github-release]: https://github.com/mfreiholz/persistent_login/releases
