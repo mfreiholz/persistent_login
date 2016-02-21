@@ -17,7 +17,7 @@ $rcmail_config['ifpl_cookie_name'] = '_pt';
 // Turn on feature  to use tokens.
 $rcmail_config['ifpl_use_auth_tokens'] = false;
 
-// The name of the database for the AuthTokens.
+// The name of the database table for the AuthTokens.
 $rcmail_config['db_table_auth_tokens'] = 'auth_tokens';
 
 // ----------------------------------
