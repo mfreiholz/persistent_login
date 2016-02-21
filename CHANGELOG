@@ -1,6 +1,0 @@
-[2015-05-23 01:11:00] Gianluca Giacometti
-    Fixed primary key in postgresql table
-    Changed css
-    Used function  rcube_utils::setcookie  to set cookies
-    Deleted the check of $_COOKIE after intert/delete: it's not possible to check at that time and log file records a wrong error of cookie unset
-
