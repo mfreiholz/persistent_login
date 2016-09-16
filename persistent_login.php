@@ -110,7 +110,7 @@ class persistent_login extends rcube_plugin
 
 			// remove all expired tokens from database.
 			$rcmail->get_dbh()->query(
-				"DELETE FROM " . get_table_name($this->db_table_auth_tokens)
+				"DELETE FROM " . $rcmail->db->table_name($this->db_table_auth_tokens)
 				." WHERE expires < ".$rcmail->db->now());
 
 			// 0 - user-id
@@ -127,7 +127,7 @@ class persistent_login extends rcube_plugin
 
 			// get auth_token data from db.
 			$res = $rcmail->get_dbh()->query(
-				"SELECT * FROM " . get_table_name($this->db_table_auth_tokens)
+				"SELECT * FROM " . $rcmail->db->table_name($this->db_table_auth_tokens)
 				." WHERE token = ?"
 					." AND user_id = ?",
 				$token_parts[1],
@@ -137,7 +137,7 @@ class persistent_login extends rcube_plugin
 				// has the token been expired?
 				/*if (false) {
 					self::unset_persistent_cookie();
-					$rcmail->get_dbh()->query("delete from " . get_table_name('auth_tokens') . " where `token`=? and `user_id`=?", $token_parts[1], $token_parts[0]);
+					$rcmail->get_dbh()->query("delete from " . $rcmail->db->table_name('auth_tokens') . " where `token`=? and `user_id`=?", $token_parts[1], $token_parts[0]);
 					error_log('persistent-login expired, of user ' . $token_parts[0]);
 					return $args;
 				}*/
@@ -153,7 +153,7 @@ class persistent_login extends rcube_plugin
 
 				// remove token from db.
 				$rcmail->get_dbh()->query(
-					"DELETE FROM " . get_table_name($this->db_table_auth_tokens)
+					"DELETE FROM " . $rcmail->db->table_name($this->db_table_auth_tokens)
 					." WHERE token = ? "
 						." AND user_id = ?",
 					$token_parts[1],
@@ -166,7 +166,7 @@ class persistent_login extends rcube_plugin
 				// and log the wrong users IP!
 				self::unset_persistent_cookie();
 				$rcmail->get_dbh()->query(
-					"DELETE FROM " . get_table_name($this->db_table_auth_tokens)
+					"DELETE FROM " . $rcmail->db->table_name($this->db_table_auth_tokens)
 					. " WHERE user_id = ?",
 					$token_parts[0]);
 				//error_log('seems like a persistent login cookie has been stolen. invalidated all auth-tokens of user ' . $token_parts[0]);
@@ -222,7 +222,7 @@ class persistent_login extends rcube_plugin
 			self::set_persistent_cookie();
 		}
 		// user just logged in by form and wants a cookie now.
-		else if (get_input_value('_ifpl', RCUBE_INPUT_POST)) {
+		else if (rcube_utils::get_input_value('_ifpl', RCUBE_INPUT_POST)) {
 			self::set_persistent_cookie();
 		}
 		// restore the user requested action
@@ -234,6 +234,7 @@ class persistent_login extends rcube_plugin
 
 	function logout_after($args)
 	{
+		$rcmail = rcmail::get_instance();
 		if ($this->use_auth_tokens) {
 			// get user-id and token from cookie.
 			$cookie_data = self::get_persistent_cookie();
@@ -243,8 +244,8 @@ class persistent_login extends rcube_plugin
 				&& count($token_parts) == 2
 			) {
 				// remove token from db.
-				rcmail::get_instance()->get_dbh()->query(
-					"DELETE FROM " . get_table_name($this->db_table_auth_tokens)
+				$rcmail->get_dbh()->query(
+					"DELETE FROM " . $rcmail->db->table_name($this->db_table_auth_tokens)
 					. " WHERE token = ? AND user_id = ?",
 					$token_parts[1],
 					$token_parts[0]);
@@ -348,7 +349,7 @@ class persistent_login extends rcube_plugin
 
 			// insert token to database.
 			$rcmail->get_dbh()->query(
-				"INSERT INTO ".get_table_name($this->db_table_auth_tokens)
+				"INSERT INTO ".$rcmail->db->table_name($this->db_table_auth_tokens)
 				." (token, expires, user_id, user_name, user_pass, host)"
 				." VALUES (?, ?, ?, ?, ?, ?)",
 				$auth_token, $sql_expires, $user_id, $user_name, $user_password, $host);
