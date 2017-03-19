@@ -222,7 +222,7 @@ class persistent_login extends rcube_plugin
 			self::set_persistent_cookie();
 		}
 		// user just logged in by form and wants a cookie now.
-		else if (rcube_utils::get_input_value('_ifpl', RCUBE_INPUT_POST)) {
+		else if (rcube_utils::get_input_value('_ifpl', rcube_utils::INPUT_POST)) {
 			self::set_persistent_cookie();
 		}
 		// restore the user requested action
