@@ -1,8 +1,6 @@
 #ifplcontainer {
 	border: 0 solid #999;
-	color: #cecece;
 	text-align: center;
-	text-shadow: 0 1px 1px black;
 }
 
 #ifplcontainer div {
