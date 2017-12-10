@@ -29,6 +29,8 @@ $(document).ready(function() {
 				$("table").append(text);
 			}
 			
+			$("form").before("<span class='hline'>" + rcmail.gettext('ifpl_action', 'persistent_login') + "</span>");
+			
 			// show hint.
 			$('#_ifpl').click(function() {
 				var t = $(this);
