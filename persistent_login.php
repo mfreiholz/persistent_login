@@ -35,7 +35,7 @@ class persistent_login extends rcube_plugin
 	function init()
 	{
 		$rcmail = rcmail::get_instance();
-
+		$this->add_texts('localization/', true);
 		// check whether the "global_config" plugin is available,
 		// otherwise load the config manually.
 		$plugins = $rcmail->config->get('plugins');
@@ -70,6 +70,8 @@ class persistent_login extends rcube_plugin
 
 		// login form modification hook.
 		$this->add_hook('template_object_loginform', array($this,'persistent_login_loginform'));
+		
+		$rcmail->output->set_pagetitle($this->gettext('ifpl_sitetitle'));
 
 		// register hooks.
 		$this->add_hook('startup', array($this, 'startup'));
