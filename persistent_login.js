@@ -13,20 +13,20 @@ $(document).ready(function() {
 		rcmail.addEventListener('init', function() {
 		
 			// create "stay logged in" checkbox.
-			var	text = '<div id="ifplcontainer">';
+			var	text = '<tr><td colspan="2"><div id="ifplcontainer">';
 				text+= '  <div>';
 				text+= '    <input type="checkbox" name="_ifpl" id="_ifpl" value="1">';
 				text+= '    <label for="_ifpl">' + rcmail.gettext('ifpl_rememberme', 'persistent_login') + '</label>';
 				text+= '  </div>';
 				text+= '  <p>' + rcmail.gettext('ifpl_rememberme_hint', 'persistent_login') + '</p>';
-				text+= '</div>';
+				text+= '</div></td></tr>';
 			
 			var element = $('div.boxcontent > form');
 			if (element && element.length !== 0) {
 				element.append(text);
 			}
 			else {
-				$('form').append(text);
+				$("table").append(text);
 			}
 			
 			// show hint.
