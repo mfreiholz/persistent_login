@@ -1,5 +1,5 @@
 html {
-	background: url("https://source.unsplash.com/daily") no-repeat center center fixed;
+	background: url(paul-morris-116514.jpg) no-repeat center center fixed;
 	background-size: cover;
 }
 
@@ -10,14 +10,35 @@ body {
 	font-size: .9375rem;
 }
 
+#login-form #logo {
+	margin: 0px;
+}
+
+#login-form p.formbuttons {
+	margin-top: 0;
+	text-align: center;
+}
+
+img {
+	vertical-align: middle;
+	padding-right: 10px;
+}
+
+.hline {
+	text-transform: uppercase;
+	font-size: 1.5rem;
+	font-weight: 300;
+}
+
 input.button {
 	background-color: #0067b8 !important;
 	color: #fff !important;
 }
 
 .box-inner {
-	background: white !important;
+	background: #fff9 !important;
 	border-radius: 0 !important;
+	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.50);
 }
 
 td.title {
