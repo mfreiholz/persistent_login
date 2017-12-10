@@ -1,7 +1,7 @@
 # Persistent Login (Roundcube)
 Provides a "Keep me logged in" aka "Remember Me" functionality for [Roundcube][roundcube]. This version is a fork from https://github.com/mfreiholz/persistent_login and changed in that way, that the checkbox is moved before the submit button. Additionally, the login screen is a little bit more modern.
 
-![Login with Larry Skin](docs/login_larry.png)
+![Login with Larry Skin](docs/login_larry.png.png)
 
 ## Download
 You can download the plugin from the latest [release tags][github-release] on GitHub.
