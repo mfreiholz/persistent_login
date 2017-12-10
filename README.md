@@ -1,5 +1,5 @@
 # Persistent Login (Roundcube)
-Provides a "Keep me logged in" aka "Remember Me" functionality for [Roundcube][roundcube].
+Provides a "Keep me logged in" aka "Remember Me" functionality for [Roundcube][roundcube]. This version is a fork from https://github.com/mfreiholz/persistent_login and changed in that way, that the checkbox is moved before the submit button. Additionally, the login screen is a little bit more modern.
 
 ![Login with Larry Skin](docs/login_larry.png)
 
@@ -37,4 +37,3 @@ $rcmail_config['ifpl_use_auth_tokens'] = true;
 ```
 
 [roundcube]: http://roundcube.net/
-[github-release]: https://github.com/mfreiholz/persistent_login/releases
