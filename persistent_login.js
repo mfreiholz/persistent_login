@@ -9,36 +9,33 @@
 $(document).ready(function() {
 
 	if (window.rcmail) {
-
-		rcmail.addEventListener('init', function() {
-		
+		rcmail.addEventListener('init', function() {		
 			// create "stay logged in" checkbox.
-			var	text = '<tr><td colspan="2"><div id="ifplcontainer">';
-				text+= '  <div>';
-				text+= '    <input type="checkbox" name="_ifpl" id="_ifpl" value="1">';
-				text+= '    <label for="_ifpl">' + rcmail.gettext('ifpl_rememberme', 'persistent_login') + '</label>';
-				text+= '  </div>';
-				text+= '  <p>' + rcmail.gettext('ifpl_rememberme_hint', 'persistent_login') + '</p>';
-				text+= '</div></td></tr>';
+			var	checkb = '<tr><td colspan="2"><div id="ifplcontainer">';
+				checkb+= '  <div>';
+				checkb+= '    <input type="checkbox" name="_ifpl" id="_ifpl" value="1">';
+				checkb+= '    <label for="_ifpl">' + rcmail.gettext('ifpl_rememberme', 'persistent_login') + '</label>';
+				checkb+= '  </div>';
+				checkb+= '</div></td></tr>';
+				
+			var hint = rcmail.gettext('ifpl_rememberme_hint', 'persistent_login');
 			
-			var element = $('div.boxcontent > form');
-			if (element && element.length !== 0) {
-				element.append(text);
-			}
-			else {
-				$("table").append(text);
-			}
+			$("table").append(checkb);
+			$('#login-bottomline').html(hint);
 			
-			$("form").before("<span class='hline'>" + rcmail.gettext('ifpl_action', 'persistent_login') + "</span>");
+			$("form").before("<span class='hline'>" + rcmail.gettext('ifpl_sitetitle', 'persistent_login') + "</span>");
+			$('.boxtitle').html(rcmail.gettext('ifpl_sitetitle', 'persistent_login'));
 			
 			// show hint.
 			$('#_ifpl').click(function() {
 				var t = $(this);
 				if (t.is(':checked')) {
-					$('#ifplcontainer > p').show();
+					$('#login-bottomline').show();
+					$('#message').html(hint);
 				}
 				else {
-					$('#ifplcontainer > p').hide();
+					$('#login-bottomline').hide();
+					$('#message').html('');
 				}
 			});
 
