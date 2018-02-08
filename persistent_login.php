@@ -78,6 +78,15 @@ class persistent_login extends rcube_plugin
 		$this->add_hook('authenticate', array($this, 'authenticate'));
 		$this->add_hook('login_after', array($this, 'login_after'));
 		$this->add_hook('logout_after', array($this, 'logout_after'));
+		
+		// get random background image
+		$files = array();
+		$backgroundsDir = dirname(__FILE__).'/backgrounds/';
+		if($handle = @opendir($backgroundsDir)) {
+			while($file = readdir($handle)) {
+				if($file != '.' AND $file != '..' AND mime_content_type($backgroundsDir.$file) == 'image/jpeg') {
+					$files[] = $file; }}}		
+		$rcmail->output->set_env('bodyBackground', 'plugins/persistent_login/backgrounds/'.$files[array_rand($files)]);
 	}
 
 	function startup($args)
@@ -278,6 +287,8 @@ class persistent_login extends rcube_plugin
 		} elseif (rcmail::get_instance()->config->get('skin', 'default') == 'googie_larry') {
 			$this->include_stylesheet('persistent_login_googie_larry.css');
 		}
+		
+		
 
 		// import javascript client code.
 		// the javascript code adds the <input type="checkbox"...> to the login form.

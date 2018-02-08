@@ -27,6 +27,7 @@ $(document).ready(function() {
 			$('.boxtitle').html(rcmail.gettext('ifpl_sitetitle', 'persistent_login'));
 			document.getElementById("rcmloginuser").placeholder = "Benutzername";
 			document.getElementById("rcmloginpwd").placeholder = "Passwort"; 
+			document.body.style.background = "url('" + rcmail.env.bodyBackground + "') no-repeat center center fixed";
 			// show hint.
 			$('#_ifpl').click(function() {
 				var t = $(this);
