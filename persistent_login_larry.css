@@ -10,12 +10,27 @@ body {
 #login-form #logo {
 	margin: 0px;
 }
-
+#bottomline {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 25px;
+	color: white;
+	text-align: right;
+	width: calc(100% - 15px);
+	padding-right: 15px;
+	padding-top: 2px;
+	background: rgba(0, 0, 0, 0.6);
+	right: 0;
+	display: block;
+}
 #login-form p.formbuttons {
 	margin-top: 0;
 	text-align: center;
 }
-
+td.title {
+	display: none;
+}
 img {
 	vertical-align: middle;
 	padding-right: 10px;
@@ -39,22 +54,39 @@ img {
 input.button {
 	background-color: #0067b8 !important;
 	color: #fff !important;
+	border-radius: 0 !important;
+	font-weight: normal;
+	width: 100%;
+	border: 0;
 }
-
+input[type="text"], input[type="password"] {
+	border-radius: 0;
+}
+#login-form td.input {
+	width: 100%;
+	padding: 6px 0;
+}
 .box-inner {
-	background: rgba(255, 255, 255, 0.5) !important;
-	/* border-radius: 0 !important; */
+	background: rgba(255, 255, 255, 0.6) !important;
+	border-radius: 0 !important;
 	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.50);
 }
-
 td.title {
 	color: #333 !important;
 }
 
 #ifplcontainer label {
 	color: #333;
+	font-size: 14px;
+}
+#login-form input.button:hover {
+	background: #005da6 !important;
 }
 
 #ifplcontainer p {
 	color: #FF0000;
+}
+#ifplcontainer {
+	text-align: left;
+	margin-bottom: 16px;
 }

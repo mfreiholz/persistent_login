@@ -25,7 +25,8 @@ $(document).ready(function() {
 			
 			$("form").before("<span class='hline'>" + rcmail.gettext('ifpl_sitetitle', 'persistent_login') + "</span>");
 			$('.boxtitle').html(rcmail.gettext('ifpl_sitetitle', 'persistent_login'));
-			
+			document.getElementById("rcmloginuser").placeholder = "Benutzername";
+			document.getElementById("rcmloginpwd").placeholder = "Passwort"; 
 			// show hint.
 			$('#_ifpl').click(function() {
 				var t = $(this);
