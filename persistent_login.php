@@ -93,10 +93,12 @@ class persistent_login extends rcube_plugin
 	{
 		// if the persistent token is available, we have to redirect to login-authentication.
 		if (self::is_persistent_cookie_available()) {
+			error_log("PerLoginTest: token available, redirect to login-authentication");
 			// store the original _action parameter, so we can redirect to where the user
 			// wanted after successful login
 			if (isset($args['action'])) {
 				$this->original_action = $args['action'];
+				error_log("PerLoginTest: action found, store it");
 			}
 			$args['action'] = 'login';
 		}

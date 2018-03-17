@@ -27,6 +27,7 @@ body {
 #login-form p.formbuttons {
 	margin-top: 0;
 	text-align: center;
+	padding: 0 30px;
 }
 td.title {
 	display: none;
@@ -34,23 +35,33 @@ td.title {
 img {
 	vertical-align: middle;
 	padding-right: 10px;
+	float: left;
+	margin: 10px 10px 0 30px !important;
 }
-
+#plhint {
+	padding: 0 30px 10px 30px;
+	margin: -10px 0;
+	font-size: 0.8em;
+	height: 40px;
+}
 .hline {
-	position: absolute;
+	position: relative;
 	text-transform: uppercase;
 	font-size: 1.5rem;
 	font-weight: 300;
-	width: 320px;
 	text-align: center;
-	display: inline-grid;
+	display: block;
+	float: left;
+	margin-top: 13px;
 }
-
 #message-objects div.notice {
 	color: white !important;
 	text-shadow: 1px 1px 2px rgb(0, 0, 0);
 }
-
+#login-form form table {
+	width: 100% !important;
+	border-spacing: 0;
+}
 input.button {
 	background-color: #0067b8 !important;
 	color: #fff !important;
@@ -58,18 +69,34 @@ input.button {
 	font-weight: normal;
 	width: 100%;
 	border: 0;
+	box-shadow: unset !important;
+	position: relative;
+	top: -10px;
+	margin: 0;
 }
 input[type="text"], input[type="password"] {
 	border-radius: 0;
+	width: 100% !important;
+	padding: 6px 10px;
+	box-sizing: border-box;
 }
 #login-form td.input {
 	width: 100%;
-	padding: 6px 0;
+	padding: 6px 30px;
+}
+#login-form {
+	width: calc(100% - 40px) !important;
 }
 .box-inner {
 	background: rgba(255, 255, 255, 0.6) !important;
 	border-radius: 0 !important;
 	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.50);
+	min-width: 320px;
+	max-width: 400px;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	width: unset !important;
+	padding: 0 !important;
 }
 td.title {
 	color: #333 !important;
