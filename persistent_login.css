@@ -1,27 +1,30 @@
 #ifplcontainer {
-	border: 0 solid #999;
-	text-align: center;
+    border: 0 solid #999;
+    text-align: center;
 }
 
 #ifplcontainer div {
-	margin: 3px 0 0 0;
-	padding: 0;
-	line-height: 1.0em;
+    margin: 3px 0 0 0;
+    padding: 0;
+    line-height: 1.0em;
 }
 
-#ifplcontainer label {
+#ifplcontainer label {}
+
+#ifplcontainer p {
+    display: none;
+    background: none repeat scroll 0 0 #fff;
+    margin: 5px 0 0 0;
+    font-size: 09em;
+}
+
+#clear {
+    clear: both;
 }
 
 #ifplcontainer p {
-	display:none;
-	background: none repeat scroll 0 0 #fff;
-	margin: 5px 0 0 0;
-	font-size:0.9em;
-}
-
-#ifplcontainer p {
-	border-radius: 4px;
-	color: #990000;
-	padding: 5px;
-	text-shadow: none;
+    border-radius: 4px;
+    color: #990000;
+    padding: 5px;
+    text-shadow: none;
 }

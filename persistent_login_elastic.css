@@ -1,0 +1,18 @@
+#ifplcontainer label {
+    float: left;
+}
+
+#ifplcontainer div {
+    line-height: 1.3em !important;
+    margin-top: 10px;
+}
+
+#_ifpl {
+    float: left;
+    margin-right: 5px;
+}
+
+#ifplcontainer {
+    margin: auto;
+    width: 140px;
+}
