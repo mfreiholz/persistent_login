@@ -1,7 +1,7 @@
 # Persistent Login (Roundcube)
 Provides a "Keep me logged in" aka "Remember Me" functionality for [Roundcube][roundcube].
 
-![Login with Larry Skin](docs/login_larry.png)
+![Login with Larry Skin](docs/login_elastic.png)
 
 ## Download
 You can download the plugin from the latest [release tags][github-release] on GitHub.
@@ -17,7 +17,9 @@ You can download the plugin from the latest [release tags][github-release] on Gi
 $config['plugins'] = array('persistent_login');
 ```
 
-## Configuration
+Thats it. All configuration is optional.
+
+## Configuration (Optional)
 Persistent Login provides two different ways of usage.
 User-Data cookie or AuthToken cookie based.
 
