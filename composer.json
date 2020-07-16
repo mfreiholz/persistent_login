@@ -1,5 +1,5 @@
 {
-	"name": "mfreiholz/persistent_login",
+	"name": "texxasrulez/persistent_login",
 	"type": "roundcube-plugin",
 	"license": "GPL-3.0+",
 	"repositories": [
@@ -18,12 +18,12 @@
 		"remember",
 		"password"
 	],
-	"homepage": "https://github.com/mfreiholz/persistent_login",
+	"homepage": "https://github.com/texxasrulez/persistent_login",
 	"version": "5.2.0",
 	"authors": [
 		{
-			"name": "Manuel Freiholz",
-			"homepage": "https://mfreiholz.de",
+			"name": "Gene Hawkins",
+			"homepage": "https://www.genesworld.net",
 			"role": "Developer"
 		}
 	]
