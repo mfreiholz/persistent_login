@@ -1,7 +1,7 @@
 {
 	"name": "texxasrulez/persistent_login",
 	"type": "roundcube-plugin",
-	"version": "1.0",
+	"version": "1.0.1",
 	"license": "GPL-3.0+",
 	"repositories": [
 		{
@@ -10,7 +10,7 @@
 		}
 	],
 	"require": {
-		"roundcube/plugin-installer": ">=0.1.6"
+		"roundcube/plugin-installer": ">=0.1.3"
 	},
 	"description": "This server-side plugin is useful for all Roundcube users who don’t like to log into their e-mail account each time they open their browser. The plugin stores a persistent login cookie which automatically logs the user in the next time he or she visits the Roundcube web mailer.",
 	"keywords": [
