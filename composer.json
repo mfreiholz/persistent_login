@@ -1,6 +1,7 @@
 {
 	"name": "texxasrulez/persistent_login",
 	"type": "roundcube-plugin",
+	"version": "1.0",
 	"license": "GPL-3.0+",
 	"repositories": [
 		{
