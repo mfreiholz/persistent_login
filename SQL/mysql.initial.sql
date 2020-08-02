@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `auth_tokens` (
 	`host` varchar(255) NOT NULL,
     KEY `user_id_fk_auth_tokens` (`user_id`),
 	PRIMARY KEY (`token`),
-	CONSTRAINT `auth_tokens_ibfk_1` FOREIGN KEY (`user_id`),
+	CONSTRAINT `auth_tokens_ibfk_1` FOREIGN KEY (`user_id`)
 	REFERENCES `users`(`user_id`) ON DELETE CASCADE
 ) /*!40000 ENGINE=INNODB */ /*!40101 CHARACTER SET utf8mb4 COLLATE utf8mb4_bin */;
 
