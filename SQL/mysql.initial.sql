@@ -17,6 +17,6 @@ CREATE TABLE IF NOT EXISTS `auth_tokens` (
 	PRIMARY KEY (`token`),
 	CONSTRAINT `auth_tokens_ibfk_1` FOREIGN KEY (`user_id`)
 	REFERENCES `users`(`user_id`) ON DELETE CASCADE
-) /*!40000 ENGINE=INNODB */ /*!40101 CHARACTER SET utf8mb4 COLLATE utf8mb4_bin */;
+) /*!40000 ENGINE=INNODB */ /*!40101 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 
-REPLACE INTO `system` (`name`, `value`) VALUES ('tx-persistent-login-version', '2020080200');
+REPLACE INTO `system` (`name`, `value`) VALUES ('persistent_login-version', '2020080200');
