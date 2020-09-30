@@ -33,6 +33,22 @@ $(document).ready(function () {
 					</tr>
 				`;
 			}
+			
+			// Collorful Larry Skin by genesworld.net
+			else if (skin == 'autumn-larry' || skin == 'black-larry' || skin == 'blue-larry' || skin == 'green-larry' || skin == 'grey-larry' || skin == 'pink-larry' || skin == 'plata-larry' || skin == 'summer-larry' || skin == 'teal-larry' || skin == 'violet-larry') {
+				parentElementSelector = '#login-form form table tbody';
+				html = `
+					<tr>
+						<td style="color:white;" align="center" colspan="2"><input type="checkbox" id="_ifpl" name="_ifpl" value="1"> &emsp;` +  rcmail.gettext('ifpl_rememberme', 'persistent_login') + `</td>
+					</tr>
+					<tr id="ifpl-hint" style="display: none;">
+						<td></td>
+						<td class="ifpl-hint" style="padding: 3px;" align="center" colspan="2">` + rcmail.gettext('ifpl_rememberme_hint', 'persistent_login') + `</td>
+					</tr>
+				`;
+			}
+			
+			// Elastic Skin
 			else if (skin == 'elastic') {
 				parentElementSelector = '#login-form table tbody';
 				html = `
