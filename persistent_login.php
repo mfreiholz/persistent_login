@@ -80,6 +80,12 @@ class persistent_login extends rcube_plugin
 
 	function startup($args)
 	{
+		// don't redirect anything but GET requests allowing roundcube
+		// to handle redirecting to 'login' normally. most notably,
+		// this may occur when 'session_lifetime' has expired during a
+		// client refresh POST.
+		if ($_SERVER["REQUEST_METHOD"] != "GET") return $args;
+
 		// if the persistent token is available, we have to redirect to login-authentication.
 		if (self::is_persistent_cookie_available()) {
 			// store the original _action parameter, so we can redirect to where the user
@@ -225,8 +231,10 @@ class persistent_login extends rcube_plugin
 		else if (rcube_utils::get_input_value('_ifpl', rcube_utils::INPUT_POST)) {
 			self::set_persistent_cookie();
 		}
-		// restore the user requested action
-		if (isset($this->original_action)) {
+		// restore the user requested action unless it's an action
+		// that's not compatible with the 'mail' task, which is always
+		// set by roundcube after login
+		if (isset($this->original_action) && $this->original_action != 'keep-alive') {
 			$args['action'] = $this->original_action;
 		}
 		return $args;
