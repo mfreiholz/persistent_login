@@ -405,17 +405,10 @@ class persistent_login extends rcube_plugin
 	 * @param $len length of the generated random string
 	 * @return string
 	 */
-	function generate_random_token($len = 28)
+	function generate_random_token($len = 32)
 	{
-		$chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		$min = 0;
-		$max = strlen($chars) - 1;
-
-		$random_string = "";
-		for ($i = 0; $i < $len; ++$i) {
-			$pos = mt_rand($min, $max);
-			$random_string.= substr($chars, $pos, 1);
-		}
+		$rand_token = openssl_random_pseudo_bytes($len);
+		$random_string = base64_encode($rand_token);
 
 		return $random_string;
 	}
