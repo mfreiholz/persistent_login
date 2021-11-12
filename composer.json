@@ -1,16 +1,8 @@
 {
-	"name": "mfreiholz/persistent_login",
+	"name": "texxasrulez/persistent_login",
 	"type": "roundcube-plugin",
-	"license": "GPL-3.0+",
-	"repositories": [
-		{
-			"type": "composer",
-			"url": "http://plugins.roundcube.net"
-		}
-	],
-	"require": {
-		"roundcube/plugin-installer": ">=0.1.6"
-	},
+	"version": "1.0.2",
+	"license": "GPL-3.0",
 	"description": "This server-side plugin is useful for all Roundcube users who don’t like to log into their e-mail account each time they open their browser. The plugin stores a persistent login cookie which automatically logs the user in the next time he or she visits the Roundcube web mailer.",
 	"keywords": [
 		"login",
@@ -18,13 +10,27 @@
 		"remember",
 		"password"
 	],
-	"homepage": "https://github.com/mfreiholz/persistent_login",
-	"version": "5.2.0",
+	"homepage": "https://github.com/texxasrulez/persistent_login",
 	"authors": [
 		{
-			"name": "Manuel Freiholz",
-			"homepage": "https://mfreiholz.de",
+			"name": "Gene Hawkins",
+			"homepage": "https://www.genesworld.net",
 			"role": "Developer"
 		}
-	]
+	],
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "http://plugins.roundcube.net"
+		}
+	],
+	"require": {
+		"roundcube/plugin-installer": "~0.1.6"
+	},
+	"extra": {
+		"roundcube": {
+			"min-version": "1.4.0",
+			"sql-dir": "SQL"
+		}
+	}
 }
