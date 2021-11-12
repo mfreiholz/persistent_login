@@ -24,3 +24,10 @@ ALTER TABLE `auth_tokens`
 
 ALTER TABLE `auth_tokens`
     ADD PRIMARY KEY(`token`);
+
+--
+-- Update Version 5.X.0
+-- Issue #36
+--
+ALTER TABLE `auth_tokens` DROP PRIMARY KEY;
+ALTER TABLE `auth_tokens` ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY;
