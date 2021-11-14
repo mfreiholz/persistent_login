@@ -408,7 +408,7 @@ class persistent_login extends rcube_plugin
 	function generate_random_token($len = 32)
 	{
 		$random_token  = openssl_random_pseudo_bytes($len);
-		$encoded_token = base64_encode($rand_token);
+		$encoded_token = base64_encode($random_token);
 		$random_string = str_replace(array('/', '+', '='), array('~', '_', ''), $encoded_token);
 
 		return $random_string;
