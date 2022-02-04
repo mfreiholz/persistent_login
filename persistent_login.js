@@ -79,14 +79,12 @@ $(document).ready(function () {
 			}
 
 			// oauth links: add _ifpl cookie when clicking link
-			if (hide_login_form) {
-				$('a#rcmloginoauth').prop('onclick', function() {
-					return function(evt) {
-						set_ifpl_cookie($('#_ifpl').prop('checked'))
-						return true;
-					};
-				});
-			}
+			$('a#rcmloginoauth').prop('onclick', function() {
+				return function(evt) {
+					set_ifpl_cookie($('#_ifpl').prop('checked'))
+					return true;
+				};
+			});
 
 			// apppend "html" with checkbox to document.
 			var element = $(parentElementSelector);
