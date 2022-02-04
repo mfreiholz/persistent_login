@@ -23,10 +23,20 @@ $(document).ready(function () {
 			// Insert different HTML for different skins.
 			if (skin == 'classic' || skin == 'larry') {
 				parentElementSelector = '#login-form form table tbody';
+				if (hide_login_form) {
+					// remove login and password entry rows
+					$(parentElementSelector).empty();
+					// remove login button
+					$('#login-form .formbuttons').remove();
+					// move ifpl checkbox below oauth button
+					$('p.oauthlogin').after($('#login-form table').detach());
+					// left-align checkbox
+					$('#login-form form table').css({'margin':'0','width':'100%'});
+				}
 				html = `
 					<tr>
 						<td class="title">` + rcmail.gettext('ifpl_rememberme', 'persistent_login') + `</td>
-						<td><input type="checkbox" id="_ifpl" name="_ifpl" value="1"></td>
+						<td width="100%"><input type="checkbox" id="_ifpl" name="_ifpl" value="1"></td>
 					</tr>
 					<tr id="ifpl-hint" style="display: none;">
 						<td></td>
