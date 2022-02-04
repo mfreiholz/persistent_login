@@ -388,6 +388,15 @@ class persistent_login extends rcube_plugin
 		// auth data
 		$oauth_data = isset($_SESSION['oauth_token']) ? json_encode($_SESSION['oauth_token']) : null;
 
+		if (! empty($oauth_data)) {
+			$auth_type = 'OAUTH';
+			$user_password = '';
+		}
+		else {
+			$auth_type = 'PLAIN';
+			$oauth_data = null;
+		}
+
 		if ($this->use_auth_tokens) {
 			// generate new token in database and set it to user as cookie...
 			$auth_token = time() . "-" . self::generate_random_token();
@@ -402,8 +411,8 @@ class persistent_login extends rcube_plugin
 			$rcmail->get_dbh()->query(
 				"INSERT INTO ".$rcmail->db->table_name($this->db_table_auth_tokens)
 				." (auth_type, token, expires, user_id, user_name, user_pass, host, auth_data)"
-				." VALUES ('OAUTH', ?, ?, ?, ?, ?, ?, ?)",
-				$auth_token, $sql_expires, $user_id, $user_name, $user_password, $host, $oauth_data ? $rcmail->encrypt($oauth_data) : null);
+				." VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+				$auth_type, $auth_token, $sql_expires, $user_id, $user_name, $user_password, $host, $oauth_data);
 
 			// set token as cookie.
 			if (!self::set_cookie($this->cookie_name, $crypt_token, $ts_expires)) {
@@ -413,7 +422,7 @@ class persistent_login extends rcube_plugin
 		else {
 			// create encrypted auth_token to store in cookie.
 			// e.g.: "<user_id>|<username>|<ecrypted_password>|<token_creation_timestamp>"
-			if ($oauth_data) {
+			if ($auth_type == 'OAUTH') {
 				$plain_token = 'OAUTH' . '|' . $user_id . '|' . $user_name . '|' . $host . '|' . (time() + $this->cookie_expire_time) . '|' . $oauth_data;
 			}
 			else {
@@ -496,7 +505,7 @@ class persistent_login extends rcube_plugin
 					$data['user_pass'] = $rcmail->decrypt($data['user_pass']);
 				}
 				else if ($data['auth_type'] == 'OAUTH') {
-					$data['auth_data'] = json_decode($rcmail->decrypt($data['auth_data']), true);
+					$data['auth_data'] = json_decode($data['auth_data'], true);
 					if ($data['auth_data'] == null) {
 						$err_msg = "Database table auth_tokens contains an auth_data field that is not parsable json. token=" . $data['token'];
 						$data =null;
