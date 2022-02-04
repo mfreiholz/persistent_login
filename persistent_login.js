@@ -18,14 +18,25 @@ $(document).ready(function () {
 			var html = '';
 			var parentElementSelector = 'form';
 			var skin = window.rcmail.env.skin;
+			var hide_login_form = window.rcmail.env.hide_login_form;
 
 			// Insert different HTML for different skins.
 			if (skin == 'classic' || skin == 'larry') {
 				parentElementSelector = '#login-form form table tbody';
+				if (hide_login_form) {
+					// remove login and password entry rows
+					$(parentElementSelector).empty();
+					// remove login button
+					$('#login-form .formbuttons').remove();
+					// move ifpl checkbox below oauth button
+					$('p.oauthlogin').after($('#login-form table').detach());
+					// left-align checkbox
+					$('#login-form form table').css({'margin':'0','width':'100%'});
+				}
 				html = `
 					<tr>
 						<td class="title">` + rcmail.gettext('ifpl_rememberme', 'persistent_login') + `</td>
-						<td><input type="checkbox" id="_ifpl" name="_ifpl" value="1"></td>
+						<td width="100%"><input type="checkbox" id="_ifpl" name="_ifpl" value="1"></td>
 					</tr>
 					<tr id="ifpl-hint" style="display: none;">
 						<td></td>
@@ -35,6 +46,20 @@ $(document).ready(function () {
 			}
 			else if (skin == 'elastic') {
 				parentElementSelector = '#login-form table tbody';
+				if (hide_login_form) {
+					// remove login and password entry rows
+					$(parentElementSelector).empty();
+					// remove login button
+					$('#login-form .formbuttons').remove();
+					// move ifpl checkbox below oauth button
+					$('p.oauthlogin').after($('#login-form table').detach());
+					// swap oauthlogin container margins with table's
+					$('p.oauthlogin').addClass('mt-0 mb-0');
+					$('#login-form table').css('margin-bottom', '1em');
+					// make oauth login button a primary color (was secondary)
+					$('#rcmloginoauth').addClass('btn-primary');
+				}
+
 				html = `
 					<tr class="form-group row">
 						<td class="title" style="display: none;">
@@ -63,6 +88,14 @@ $(document).ready(function () {
 				`;
 			}
 
+			// oauth links: add _ifpl cookie when clicking link
+			$('a#rcmloginoauth').prop('onclick', function() {
+				return function(evt) {
+					set_ifpl_cookie($('#_ifpl').prop('checked'))
+					return true;
+				};
+			});
+
 			// apppend "html" with checkbox to document.
 			var element = $(parentElementSelector);
 			if (element && element.length !== 0) {
@@ -86,4 +119,8 @@ $(document).ready(function () {
 		});
 
 	} // if (window.rcmail)
+
+	function set_ifpl_cookie(value) {
+		window.rcmail.set_cookie('_ifpl', value ? "1" : "0");
+	}
 });

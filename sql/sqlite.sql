@@ -12,3 +12,9 @@ CREATE TABLE IF NOT EXISTS `auth_tokens` (
 );
 
 CREATE INDEX IF NOT EXISTS `user_id_fk_auth_tokens` ON `auth_tokens`(`user_id`);
+
+--
+-- Update version 5.??
+--
+ALTER TABLE `auth_tokens` ADD COLUMN `auth_type` TEXT NOT NULL DEFAULT 'PLAIN';
+ALTER TABLE `auth_tokens` ADD COLUMN `auth_data` TEXT NULL;

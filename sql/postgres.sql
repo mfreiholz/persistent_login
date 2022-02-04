@@ -15,3 +15,9 @@ CREATE TABLE auth_tokens (
         user_pass varchar(128) NOT NULL,
         host varchar(255) NOT NULL
 );
+
+--
+-- Update version 5.??
+--
+ALTER TABLE auth_tokens ADD COLUMN auth_type varchar(15) NOT NULL DEFAULT 'PLAIN';
+ALTER TABLE auth_tokens ADD COLUMN auth_data TEXT NULL;
