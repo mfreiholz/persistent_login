@@ -24,3 +24,9 @@ ALTER TABLE `auth_tokens`
 
 ALTER TABLE `auth_tokens`
     ADD PRIMARY KEY(`token`);
+
+--
+-- Update version 5.??
+--
+ALTER TABLE `auth_tokens` ADD COLUMN `auth_type` varchar(15) NOT NULL DEFAULT 'PLAIN';
+ALTER TABLE `auth_tokens` ADD COLUMN `auth_data` TEXT NULL;
