@@ -38,5 +38,20 @@ Enable it in config: `persistent_login/config.inc.php`
 $rcmail_config['ifpl_use_auth_tokens'] = true;
 ```
 
+### OAuth with login redirect
+Persistent Login works with OAuth as-is. However, if Roundcube's automatic login redirect setting `oauth_login_redirect` is true, the user will not have the opportunity to select "Keep me logged in" because Roundcube sends the user directly to the OAuth server for authentication (the login screen is not shown at all).
+
+To enable Persistent Login in this case, change Roundcube's `oauth_login_redirect` setting to __false__. In config/config.inc.php:
+```php
+$config["oauth_login_redirect"] = false;
+```
+
+Then, enable Persistent Login's `ifpl_oauth_login_redirect` setting. In `plugins/persistent_login/config.inc.php`
+```php
+$rcmail_config['ifpl_oauth_login_redirect'] = true;
+```
+
+The login screen will be displayed showing only the "Keep me logged in" checkbox and a button to authenticate with the OAuth server.
+
 [roundcube]: http://roundcube.net/
 [github-release]: https://github.com/mfreiholz/persistent_login/releases
