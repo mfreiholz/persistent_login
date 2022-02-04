@@ -258,8 +258,8 @@ class persistent_login extends rcube_plugin
 		else if (rcube_utils::get_input_value('_ifpl', rcube_utils::INPUT_POST)) {
 			self::set_persistent_cookie();
 		}
+		// user just logged in using oauth and wants a cookie now
 		else if (rcube_utils::get_input_value('_ifpl', rcube_utils::INPUT_COOKIE) == '1') {
-			// oauth login
 			self::set_persistent_cookie();
 		}
 		self::remove_cookie('_ifpl');
@@ -465,11 +465,25 @@ class persistent_login extends rcube_plugin
 	}
 
 	/**
-	 * retrieve the persistent cookie data as an array. The fields of
-	 * the returned associate array match those of the database table
-	 * column names.
+	 * retrieve the persistent cookie data as an array or null if auth
+	 * data is unavailable. The fields of the returned associative
+	 * array match those of the database table column names.
+	 *
+	 * returned array: [
+	 *    'auth_type' => 'OAUTH' | 'PLAIN',
+	 *    'user_id'   => {number; may be formatted as integer or string},
+	 *    'user_name' => {string},
+	 *    'user_pass' => {string; '' if auth_type=='OAUTH'},
+	 *    'host'      => {string},
+	 *    'expires'   => {string; 'YYYY-MM-DD HH:MM:SS' format if use_auth_tokens is truthy, otherwise the number of seconds from the epoch },
+	 *    'auth_data' => {array} | null
+	 * ]
 	 *	
+	 * when using auth tokens, the function has the side effect of
+	 * removing the correspoding row in the database.
+	 *
 	 * @return array
+	 * @return null
 	 */
 	function auth_from_cookie() {
 		$rcmail = rcmail::get_instance();
@@ -577,19 +591,20 @@ class persistent_login extends rcube_plugin
 				if (time() > $token_parts[5]) {
 					return null;
 				}
-				else {
-					$data = [];
-					$data['auth_type'] = $auth_type;
-					$data['user_id'] = $token_parts[1];
-					$data['user_name'] = $token_parts[2];
-					$data['user_pass'] = $rcmail->decrypt($token_parts[3]);
-					$data['host'] = $token_parts[4];
-					$data['expires'] = $token_parts[5];
-					$data['auth_data'] = null;
-					return $data;
-				}
+				$data = [];
+				$data['auth_type'] = $auth_type;
+				$data['user_id'] = $token_parts[1];
+				$data['user_name'] = $token_parts[2];
+				$data['user_pass'] = $rcmail->decrypt($token_parts[3]);
+				$data['host'] = $token_parts[4];
+				$data['expires'] = $token_parts[5];
+				$data['auth_data'] = null;
+				return $data;
 			}
 			else if ($auth_type == 'OAUTH' && count($token_parts) == 6) {
+				if (time() > $token_parts[4]) {
+					return null;
+				}
 				$data = [];
 				$data['auth_type'] = $auth_type;
 				$data['user_id'] = $token_parts[1];
