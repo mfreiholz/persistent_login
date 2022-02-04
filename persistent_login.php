@@ -82,7 +82,6 @@ class persistent_login extends rcube_plugin
 		$this->add_hook('logout_after', array($this, 'logout_after'));
 		$this->add_hook('login_failed', array($this, 'login_failed'));
 		$this->add_hook('oauth_refresh_token', array($this, 'oauth_refresh_token'));
-
 	}
 
 	function startup($args)
@@ -109,12 +108,10 @@ class persistent_login extends rcube_plugin
 
 	function authenticate($args)
 	{
-
 		$this->authenticate_args = $args;
 
 		// check for auth_token cookie.
 		if (!self::is_persistent_cookie_available()) {
-
 			return $args;
 		}
 
@@ -157,7 +154,6 @@ class persistent_login extends rcube_plugin
 	 * @return bool
 	 */
 	function authenticate_oauth(&$args, $auth) {
-
 		$rcmail = rcmail::get_instance();
 
 		// refresh the access token
@@ -166,7 +162,6 @@ class persistent_login extends rcube_plugin
 		$rcmail->oauth->refresh([]);
 
 		$data = $_SESSION['oauth_token'];
-
 		$authorization = sprintf(
 			'%s %s',
 			$data['token_type'],
@@ -201,7 +196,6 @@ class persistent_login extends rcube_plugin
 	 * @return bool
 	 */
 	function authenticate_plain(&$args, $auth) {
-
 		// set login data.
 		$args['user'] = $auth['user_name'];
 		$args['pass'] = $auth['user_pass'];
@@ -220,7 +214,6 @@ class persistent_login extends rcube_plugin
 	 * on one of those pages.
 	 */
 	function oauth_refresh_token($args) {
-
 		if (self::is_persistent_cookie_available()) {
 			$rcmail = rcmail::get_instance();
 			
@@ -251,14 +244,12 @@ class persistent_login extends rcube_plugin
 			if (! empty($rcmail->user->ID)) {
 				self::set_persistent_cookie();
 			}
-
 		}
 		return $args;
 	}
 
 	function login_after($args)
 	{
-
 		// update the already existing cookie (because of expiration time).
 		if (self::is_persistent_cookie_available()) {
 			self::set_persistent_cookie();
@@ -284,7 +275,6 @@ class persistent_login extends rcube_plugin
 
 	function logout_after($args)
 	{
-
 		$rcmail = rcmail::get_instance();
 		if ($this->use_auth_tokens) {
 			// get user-id and token from cookie.
@@ -314,7 +304,6 @@ class persistent_login extends rcube_plugin
 	 */
 	function login_failed($args)
 	{
-
 		self::unset_persistent_cookie();
 		return $args;
 	}
@@ -364,7 +353,6 @@ class persistent_login extends rcube_plugin
 	 */
 	function set_persistent_cookie()
 	{
-
 		// prepare data for login via cookie
 		$rcmail = rcmail::get_instance();
 
@@ -428,7 +416,7 @@ class persistent_login extends rcube_plugin
 			if ($oauth_data) {
 				$plain_token = 'OAUTH' . '|' . $user_id . '|' . $user_name . '|' . $host . '|' . (time() + $this->cookie_expire_time) . '|' . $oauth_data;
 			}
-			else {				
+			else {
 				$plain_token = 'PLAIN' . '|' . $user_id . '|' . $user_name . '|' . $user_password . '|' . $host . '|' . (time() + $this->cookie_expire_time);
 			}
 			
@@ -525,7 +513,6 @@ class persistent_login extends rcube_plugin
 					$token_parts[0]  // user_id
 				);
 
-
 				return $data;
 			}
 			else {
@@ -566,7 +553,6 @@ class persistent_login extends rcube_plugin
 			
 			$plain_token = $rcmail->decrypt($_COOKIE[$this->cookie_name]);
 			$token_parts = explode('|', $plain_token);
-
 
 			//error_log('plain token from cookie = '.$plain_token);
 			
@@ -702,7 +688,6 @@ class persistent_login extends rcube_plugin
 	function remove_cookie($name)
 	{
 		if (headers_sent()) {
-
 			return false;
 		}
 		if (class_exists('rcube_utils')) {
@@ -712,7 +697,6 @@ class persistent_login extends rcube_plugin
 		}
 		return true;
 	}
-
 
 	/**
 	* Check if a given ip is in a network
