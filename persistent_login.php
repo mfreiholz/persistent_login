@@ -125,7 +125,7 @@ class persistent_login extends rcube_plugin
 
 			// abort: invalid cookie format.
 			if (empty($token_parts) || !is_array($token_parts)
-				|| count($token_parts) != 2
+				|| count($token_parts) != 3
 			) {
 				self::unset_persistent_cookie();
 				return $args;
@@ -155,6 +155,7 @@ class persistent_login extends rcube_plugin
 				$args['cookiecheck'] = false;
 				$args['valid'] = true;
 				$args['abort'] = false;
+				$_SESSION['timezone'] = rcube_utils::get_input_value('_timezone', rcube_utils::INPUT_POST) ?? $token_parts[2];
 				$this->authenticate_args = $args;
 
 				// remove token from db.
@@ -194,7 +195,7 @@ class persistent_login extends rcube_plugin
 			//error_log('plain token from cookie = '.$plain_token);
 
 			if (!empty($token_parts) && is_array($token_parts)
-				&& count($token_parts) == 5
+				&& count($token_parts) == 6
 			) {
 				// cookie/token expired. (should never occur, because the browser shall delete the cookie)
 				if (time() > $token_parts[4]) {
@@ -208,6 +209,7 @@ class persistent_login extends rcube_plugin
 					$args['cookiecheck'] = false;
 					$args['valid'] = true;
 					$args['abort'] = false;
+					$_SESSION['timezone'] = rcube_utils::get_input_value('_timezone', rcube_utils::INPUT_POST) ?? $token_parts[5];
 					$this->authenticate_args = $args;
 				}
 			}
@@ -249,7 +251,7 @@ class persistent_login extends rcube_plugin
 			$token_parts = explode('|', $cookie_data);
 
 			if (!empty($token_parts) && is_array($token_parts)
-				&& count($token_parts) == 2
+				&& count($token_parts) == 3
 			) {
 				// remove token from db.
 				$rcmail->get_dbh()->query(
@@ -337,11 +339,13 @@ class persistent_login extends rcube_plugin
 		// user password
 		$user_password = $_SESSION['password'];
 
+		// timezone
+		$timezone = $_SESSION['timezone'];
 
 		if ($this->use_auth_tokens) {
 			// generate new token in database and set it to user as cookie...
 			$auth_token = time() . "-" . self::generate_random_token();
-			$plain_token = $user_id . '|' . $auth_token;
+			$plain_token = $user_id . '|' . $auth_token . '|' . $timezone;
 			$crypt_token = $rcmail->encrypt($plain_token);
 
 			// calculate expire date for database.
@@ -363,7 +367,7 @@ class persistent_login extends rcube_plugin
 		else {
 			// create encrypted auth_token to store in cookie.
 			// e.g.: "<user_id>|<username>|<ecrypted_password>|<token_creation_timestamp>"
-			$plain_token = $user_id . '|' . $user_name . '|' . $user_password . '|' . $host . '|' . (time() + $this->cookie_expire_time);
+			$plain_token = $user_id . '|' . $user_name . '|' . $user_password . '|' . $host . '|' . (time() + $this->cookie_expire_time) . '|' . $timezone;
 			$crypt_token = $rcmail->encrypt($plain_token);
 
 			//error_log('set plain token to cookie = '.$plain_token);
