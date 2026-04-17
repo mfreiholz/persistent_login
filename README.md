@@ -50,3 +50,15 @@ $rcmail_config['ifpl_use_auth_tokens'] = true;
 
 [roundcube]: http://roundcube.net/
 [github-release]: https://github.com/mfreiholz/persistent_login/releases
+
+## Versioning
+- `persistent_login` now keeps its canonical version in `persistent_login::PLUGIN_VERSION` inside `persistent_login.php`.
+- `persistent_login::info()` exposes the plugin metadata array used for self-identification.
+- Development builds should use a `+dev` suffix such as `1.0.2+dev`.
+- Release builds should use a clean tagged version such as `1.0.2`.
+
+For a release bump:
+1. Update `persistent_login::PLUGIN_VERSION` in `persistent_login.php` or run `sh scripts/bump-version.sh 1.0.2`.
+2. Update `CHANGELOG.md`.
+3. Create the matching release tag after verification.
+

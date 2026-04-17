@@ -9,6 +9,20 @@
 */
 class persistent_login extends rcube_plugin
 {
+    const PLUGIN_VERSION = '1.0.3';
+    const PLUGIN_INFO = array(
+        'name' => 'persistent_login',
+        'vendor' => 'Gene Hawkins',
+        'version' => self::PLUGIN_VERSION,
+        'license' => 'GPL-3.0',
+        'uri' => 'https://github.com/texxasrulez/persistent_login',
+    );
+
+    public static function info(): array
+    {
+        return self::PLUGIN_INFO;
+    }
+
 	// registered tasks for this plugin.
 	public $task = 'login|logout';
 
