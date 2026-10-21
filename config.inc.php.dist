@@ -27,5 +27,8 @@ $rcmail_config['db_table_auth_tokens'] = 'auth_tokens';
 
 // List of allowed IP masks
 // e.g.: '127.0.0.1/32', '10.10.0.0/24', '1.1.1.0/24'
+// The client address comes from Roundcube's rcube_utils::remote_addr(). Behind a
+// reverse proxy, add the proxy to Roundcube's 'proxy_whitelist', otherwise the
+// proxy's own address is checked and X-Forwarded-For is ignored.
 $rcmail_config['ifpl_netmask_whitelist'] = array();
 ?>

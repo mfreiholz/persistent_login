@@ -480,12 +480,9 @@ class persistent_login extends rcube_plugin
 
 	function remote_addr()
 	{
-		if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
-			return $_SERVER["HTTP_X_FORWARDED_FOR"];
-		} else if (isset($_SERVER["REMOTE_ADDR"])) {
-			return $_SERVER["REMOTE_ADDR"];
-		}
-		return "";
+		// Forwarding headers are client-controlled. Roundcube only honours them for
+		// requests from a proxy listed in proxy_whitelist, so use its implementation.
+		return (string) rcube_utils::remote_addr();
 	}
 
 }
